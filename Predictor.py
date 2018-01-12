@@ -1,11 +1,12 @@
 import pandas as pd
 import statsmodels.api as sm
+from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 class Predictor:
 
     def train(self, data):
         #Get the lsit of dependent variables from the data set
-        X = data[ ["Open", "High", "Low", "Volume"] ]
+        X = data[ ["Open"] ]
         #Get independent variable from the data set
         y = data["Close"]
         #give X a constant term, representing y-intercept
@@ -16,13 +17,21 @@ class Predictor:
         constantValue = 0.0
         if self.time > 1:
             constantValue = results.params.const
+
+        #Test for Collinearity
+        vif = pd.DataFrame()
+        vif["VIF Factor"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+        vif["features"] = X.columns
+        print results.summary()
+        print vif.round(1)
+
         #create dictionary of coefficients
-        self.coefficients = {"Constant": constantValue, "Open": results.params.Open, "High": results.params.High, "Low": results.params.Low, "Volume": results.params.Volume }
+        self.coefficients = {"Constant": constantValue, "Open": results.params.Open }
 
 
     def test(self, data):
         #Get the features (dependent vars) & their data from our test day, t
-        features = { "Open": data.Open, "High": data.High, "Low": data.Low, "Volume": data.Volume }
+        features = { "Open": data.Open }
         #get the closing price for day t
         close = data.Close
         #start prediction at our y-intercept
