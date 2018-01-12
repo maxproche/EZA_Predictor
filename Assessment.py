@@ -9,7 +9,7 @@ def main():
     #if the user provides us with no time t via the command line
     if len(args) == 0:
         #define the error strings
-        errorStrings = ["Give a command line argument denoting time t.", "Example Command: python Assessment.py 5, 10, 100, 1000", "5, 10, 100, 1000 are all time t values that the program will calculate"]
+        errorStrings = ["Give a command line argument denoting time t.", "Example Command: python Assessment.py 5, 10, 100, 1000"]
         #print the error strings
         printIt(errorStrings)
         return
@@ -34,7 +34,7 @@ def noErrorsInArg(s):
         t = int(s)
         #if time t <= 0, there is no data for us to predict
         if t <= 0:
-            printIt("Number must be positive integer!")
+            printIt("Number must be positive integer, not " + s)
             return False
         #get the data of the cvs file
         data = pd.read_csv("EZA_Daily.csv")
@@ -49,6 +49,7 @@ def noErrorsInArg(s):
 
     #if number cannot be converted to an int, return false
     except ValueError:
+        printIt(s + " is not a positive integer.")
         return False
 
 #The following method prints a string or list of strings in the desired format

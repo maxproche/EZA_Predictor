@@ -18,9 +18,7 @@ class Predictor:
         if self.time > 1:
             constantValue = results.params.const
 
-        #Test for Collinearity
-
-        #create dictionary of coefficients
+        #create dictionary of coefficients used to calculate closing price of day t
         self.coefficients = {"Constant": constantValue, "High": results.params.High, "Low": results.params.Low, "Open": results.params.Open }
 
     def test(self, data):
@@ -55,7 +53,7 @@ class Predictor:
         #the data we use will range from row 0 through row t
         data = pd.read_csv("EZA_Daily.csv", nrows = t + 1)
 
-        #training data will be the data from day 0 through day t-1
+        #training data will be the data from day startTime through day t-1
         trainData = data[startTime:t]
         #we will test how well our model does on day t
         testData = data.ix[t]
