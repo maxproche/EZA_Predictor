@@ -1,0 +1,40 @@
+How to run the program:
+
+Input: 
+	The program must receive atleast one valid time t from the command line.
+		ex’s: 1. python Assessment.py 10
+		      2. python Assessment.py 5 10 1000
+		      	1. Will give the closing price of time 10
+			2. Will give the closing price for 5, 10, and 1000 
+Output: 
+	Error messages occur if you give no input at all or if you give an invalid input
+	Successful outputs will look like this:
+		************************************************************
+		Time t: 300
+		Predicted Close: 29.567489759354967
+		Actual Close: 29.695
+		Ratio: 0.995706003009
+		************************************************************
+	Time t - The time we are predicting for (given by the user)
+	Predicted Close - The closing price this model predicts for day t
+	Actual Close - The actual closing price of day t
+	Ratio - Predicted Close / Actual Close
+
+Full Example:
+	>>> python Assessment.py 250 3000
+
+	************************************************************
+	Time t: 250
+	Predicted Close: 27.59788504971104
+	Actual Close: 27.5
+	Ratio: 1.00355945635
+	************************************************************
+
+
+	************************************************************
+	Time t: 3000
+	Predicted Close: 65.9813747700393
+	Actual Close: 66.139999
+	Ratio: 0.997601689865
+	************************************************************
+
