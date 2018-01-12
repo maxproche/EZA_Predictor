@@ -1,0 +1,13 @@
+Coding:
+	Pandas/Statsmodels walk-through:
+		https://www.datarobot.com/blog/multiple-regression-using-statsmodels/
+	Data (CSV file) retrieved from:
+		https://finance.yahoo.com/quote/EZA/history?p=EZA
+	Python Syntax:
+		stackoverflow.com
+
+Economics:
+	https://www.investopedia.com/terms/e/etf.asp
+	
+Statistics:
+	Did a bunch of reading up on regression	

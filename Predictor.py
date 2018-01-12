@@ -38,22 +38,27 @@ class Predictor:
         testOutcome = ["Time t: " + str(self.time), "Predicted Close: " + str(prediction), "Actual Close: " + str(close), "Ratio: " + str(ratio) ]
         return testOutcome
 
-    def getPredictionForDay(self, time):
-        """
-        if less than 5 do something different maybe
-        """
+    def getPredictionForDay(self, time, interval=30):
+
         #create instance variable containing time
         self.time = time
         t = time
+
+        #only look at the past month for the training data
+        startTime = 0
+        if time - interval >= 0:
+            startTime = time - interval
+
         #the data we use will range from row 0 through row t
         data = pd.read_csv("EZA_Daily.csv", nrows = t + 1)
 
         #training data will be the data from day 0 through day t-1
-        trainData = data[0:t]
+        trainData = data[startTime:t]
         #we will test how well our model does on day t
         testData = data.ix[t]
         #train the model on our training data
         self.train(trainData)
         #get the results of our trained model on the test data a.k.a. data from day t
         testOutcome = self.test(testData)
+
         return testOutcome

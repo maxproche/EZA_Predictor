@@ -13,7 +13,7 @@ def main():
         #print the error strings
         printIt(errorStrings)
         return
-        
+
     #otherwise, instantiate the predictor class
     predictor = Predictor()
     #for each argument provided via the command line
@@ -23,7 +23,8 @@ def main():
             #get the int version of the arg
             t = int(arg)
             #predict the closing price for day t
-            testOutcome = predictor.getPredictionForDay(t)
+            interval = 30
+            testOutcome = predictor.getPredictionForDay(t, interval)
             printIt(testOutcome)
 
 def noErrorsInArg(s):
