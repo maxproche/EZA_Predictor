@@ -6,7 +6,7 @@ class Predictor:
 
     def train(self, data):
         #Get the lsit of dependent variables from the data set
-        X = data[ ["Open"] ]
+        X = data[ ["High", "Low", "Open"] ]
         #Get independent variable from the data set
         y = data["Close"]
         #give X a constant term, representing y-intercept
@@ -19,19 +19,13 @@ class Predictor:
             constantValue = results.params.const
 
         #Test for Collinearity
-        vif = pd.DataFrame()
-        vif["VIF Factor"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
-        vif["features"] = X.columns
-        print results.summary()
-        print vif.round(1)
 
         #create dictionary of coefficients
-        self.coefficients = {"Constant": constantValue, "Open": results.params.Open }
-
+        self.coefficients = {"Constant": constantValue, "High": results.params.High, "Low": results.params.Low, "Open": results.params.Open }
 
     def test(self, data):
         #Get the features (dependent vars) & their data from our test day, t
-        features = { "Open": data.Open }
+        features = { "High": data.High, "Low": data.Low, "Open": data.Open }
         #get the closing price for day t
         close = data.Close
         #start prediction at our y-intercept
@@ -71,3 +65,9 @@ class Predictor:
         testOutcome = self.test(testData)
 
         return testOutcome
+
+    def multiCollinearityTest(self, X):
+            vif = pd.DataFrame()
+            vif["VIF Factor"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+            vif["features"] = X.columns
+            print vif.round(1)
